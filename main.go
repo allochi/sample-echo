@@ -9,6 +9,7 @@ func main() {
 	router.GET("/", home)
 	data := router.Group("/data")
 	data.GET("/quotes", getQuotes)
+	data.GET("/tenders", getTenders)
 
 	router.Logger.Fatal(router.Start(":3300"))
 }
@@ -24,4 +25,8 @@ func getQuotes(ctx echo.Context) error {
 	}{"allochi", 45}
 
 	return ctx.JSON(http.StatusOK, response)
+}
+
+func getTenders(ctx echo.Context) error {
+	return ctx.String(http.StatusOK, "These are tenders!")
 }

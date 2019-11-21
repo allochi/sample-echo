@@ -29,3 +29,24 @@ func TestGetQuotes(t *testing.T) {
 		assert.Equal(t, exp, got)
 	}
 }
+
+func TestGetTenders(t *testing.T) {
+	router := echo.New()
+	req := httptest.NewRequest(http.MethodGet, "/data/tenders", nil)
+	rec := httptest.NewRecorder()
+	ctx := router.NewContext(req, rec)
+
+	err := getTenders(ctx)
+	if err != nil {
+		t.Error(err)
+	}
+	if rec.Code != http.StatusOK {
+		t.Error("Not OK")
+	}
+
+	got := rec.Body.String()
+	exp := "These are tenders"
+	if got != exp {
+		assert.Equal(t, exp, got)
+	}
+}
