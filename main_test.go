@@ -45,7 +45,7 @@ func TestGetTenders(t *testing.T) {
 	}
 
 	got := rec.Body.String()
-	exp := "These are tenders"
+	exp := "These are tenders!"
 	if got != exp {
 		assert.Equal(t, exp, got)
 	}
