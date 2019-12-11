@@ -17,8 +17,8 @@ func main() {
 	data.GET("/quotes", handlers.GetQuotes)
 	data.GET("/tenders", handlers.GetTenders)
 
-	// add `secrets` section to API with authentication middleware
-	// -----------------------------------------------------------
+	// add `secrets` section to API with authentication
+	// ------------------------------------------------
 	secrets := router.Group("/secrets")
 	secrets.Use(middleware.BasicAuth(handlers.Authenticate))
 	secrets.GET("/names", handlers.GetNames)
