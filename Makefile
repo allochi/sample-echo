@@ -1,5 +1,5 @@
 default: test clean main.go
-	go build -o bin/main .
+	go build -v -o bin/main .
 
 test:
 	go test
