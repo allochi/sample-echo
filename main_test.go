@@ -1,12 +1,12 @@
 package main
 
 import (
+	. "github.com/allochi/sample-echo/handlers"
+	"github.com/labstack/echo"
+	"github.com/stretchr/testify/assert"
 	"net/http"
 	"net/http/httptest"
 	"testing"
-
-	"github.com/labstack/echo/v4"
-	"github.com/stretchr/testify/assert"
 )
 
 func TestGetQuotes(t *testing.T) {
@@ -15,7 +15,7 @@ func TestGetQuotes(t *testing.T) {
 	rec := httptest.NewRecorder()
 	ctx := router.NewContext(req, rec)
 
-	err := getQuotes(ctx)
+	err := GetQuotes(ctx)
 	if err != nil {
 		t.Error(err)
 	}
@@ -36,7 +36,7 @@ func TestGetTenders(t *testing.T) {
 	rec := httptest.NewRecorder()
 	ctx := router.NewContext(req, rec)
 
-	err := getTenders(ctx)
+	err := GetTenders(ctx)
 	if err != nil {
 		t.Error(err)
 	}
