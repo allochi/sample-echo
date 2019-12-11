@@ -1,32 +1,23 @@
 package main
 
-import "github.com/labstack/echo/v4"
+import (
+	"github.com/allochi/sample-echo/handlers"
 
-import "net/http"
+	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
+)
 
 func main() {
 	router := echo.New()
-	router.GET("/", home)
+	router.GET("/", handlers.Home)
+
 	data := router.Group("/data")
-	data.GET("/quotes", getQuotes)
-	data.GET("/tenders", getTenders)
+	data.GET("/quotes", handlers.GetQuotes)
+	data.GET("/tenders", handlers.GetTenders)
+
+	secrets := router.Group("/secrets")
+	secrets.Use(middleware.BasicAuth(handlers.Authenticate))
+	secrets.GET("/names", handlers.GetNames)
 
 	router.Logger.Fatal(router.Start(":3300"))
-}
-
-func home(ctx echo.Context) error {
-	return ctx.String(http.StatusOK, "Hello, world!")
-}
-
-func getQuotes(ctx echo.Context) error {
-	response := struct {
-		Name string `json:"name"`
-		Age  int64  `json:"age"`
-	}{"allochi", 45}
-
-	return ctx.JSON(http.StatusOK, response)
-}
-
-func getTenders(ctx echo.Context) error {
-	return ctx.String(http.StatusOK, "These are tenders!")
 }
